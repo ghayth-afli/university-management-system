@@ -1,10 +1,10 @@
-package com.soa.uneversity.management.system;
+package com.soa.university.management.system;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class UneversityManagementSystemApplicationTests {
+class UniversityManagementSystemApplicationTests {
 
 	@Test
 	void contextLoads() {
