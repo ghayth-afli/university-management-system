@@ -9,7 +9,7 @@ public class Module {
     private Long Id;
     private String name;
     private int creditPoints;
-    private int coefDs;
-    private int coefExam;
+    private int Ds;
+    private int Exam;
     private int duration;
 }
