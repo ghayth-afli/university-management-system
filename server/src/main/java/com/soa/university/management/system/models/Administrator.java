@@ -22,4 +22,13 @@ public class Administrator {
     private String phoneNumber;
     private String address;
     private String position;
+
+    public Administrator(String firstName, String lastName, String email, String phoneNumber, String address, String position) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.address = address;
+        this.position = position;
+    }
 }
