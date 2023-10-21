@@ -7,22 +7,20 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.List;
-
-@AllArgsConstructor
-@NoArgsConstructor
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
-@Table(name = "teachers")
-public class Teacher {
+@Table(name = "cls")
+public class Cl {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String picture;
-    private String firstName;
-    private String lastName;
-    private String email;
-    private Double salary;
-    @OneToMany(mappedBy = "teacher")
-    private List<Schedule> schedules;
+    @Enumerated(EnumType.STRING)
+    private Speciality speciality;
+    private String grade;
+    private Character grp;
+    @OneToMany(mappedBy = "cl")
+    private List<Student> students;
 }
