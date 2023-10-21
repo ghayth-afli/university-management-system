@@ -25,4 +25,14 @@ public class Teacher {
     private Double salary;
     @OneToMany(mappedBy = "teacher")
     private List<Schedule> schedules;
+
+    public Teacher( String picture, String firstName, String lastName, String email, Double salary, List<Schedule> schedules) {
+        this.picture = picture;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.salary = salary;
+        this.schedules = schedules;
+    }
+    
 }
