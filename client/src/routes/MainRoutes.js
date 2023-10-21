@@ -15,6 +15,9 @@ const Typography = Loadable(lazy(() => import('pages/components-overview/Typogra
 const Color = Loadable(lazy(() => import('pages/components-overview/Color')));
 const Shadow = Loadable(lazy(() => import('pages/components-overview/Shadow')));
 const AntIcons = Loadable(lazy(() => import('pages/components-overview/AntIcons')));
+const Students = Loadable(lazy(() => import('pages/roles/Students')));
+const Teachers = Loadable(lazy(() => import('pages/roles/Teachers')));
+const Administration = Loadable(lazy(() => import('pages/roles/Administration')));
 
 // ==============================|| MAIN ROUTING ||============================== //
 
@@ -54,6 +57,18 @@ const MainRoutes = {
     {
       path: 'icons/ant',
       element: <AntIcons />
+    },
+    {
+      path: 'students',
+      element: <Students />
+    },
+    {
+      path: 'teachers',
+      element: <Teachers />
+    },
+    {
+      path: 'administration',
+      element: <Administration />
     }
   ]
 };
