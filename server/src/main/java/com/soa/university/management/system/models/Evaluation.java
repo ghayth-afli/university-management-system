@@ -7,6 +7,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @Getter
 @Setter
-public class Teacher {
-    private Long Id;
+public class Evaluation {
+    private double note;
+    private Integer absance;
 }
