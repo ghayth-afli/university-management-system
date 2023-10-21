@@ -9,4 +9,6 @@ import lombok.Setter;
 @Setter
 public class Teacher {
     private Long Id;
+    private String img;
+   
 }
