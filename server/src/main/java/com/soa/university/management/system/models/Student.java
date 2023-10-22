@@ -28,4 +28,16 @@ public class Student {
     private Cl cl;
     @OneToMany(mappedBy = "student")
     private List<Evaluation> evaluations;
+
+    public Student(String firstName, String lastName, Integer age, String email, String phoneNumber, String address, String city, String country, String picture) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.age = age;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.address = address;
+        this.city = city;
+        this.country = country;
+        this.picture = picture;
+    }
 }
