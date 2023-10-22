@@ -1,6 +1,6 @@
 package com.soa.university.management.system.controllers;
 
-import com.soa.university.management.system.models.Schedule;
+
 import com.soa.university.management.system.payloads.requests.ScheduleRequest;
 import com.soa.university.management.system.payloads.responses.MessageResponse;
 import com.soa.university.management.system.repositories.ScheduleRepository;

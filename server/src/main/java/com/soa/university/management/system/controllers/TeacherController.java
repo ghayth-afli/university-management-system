@@ -21,7 +21,7 @@ public class TeacherController {
     @PostMapping("/teachers")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> addTeacher(@RequestBody TeacherRequest teacherRequest){
-        Teacher teacher = new Teacher(teacherRequest.getPicture(),teacherRequest.getFirstName(),teacherRequest.getLastName(),teacherRequest.getEmail(),teacherRequest.getSalary());
+        Teacher teacher = new Teacher(teacherRequest.getPhoneNumber(),teacherRequest.getFirstName(),teacherRequest.getLastName(),teacherRequest.getEmail(),teacherRequest.getSalary());
         teacherRepository.save(teacher);
         return ResponseEntity.ok(new MessageResponse("Teacher successfully added"));
     }
@@ -50,7 +50,7 @@ public class TeacherController {
             return ResponseEntity.ok(new MessageResponse("Teacher not found"));
         }
         Teacher teacher = teacherResponse.get();
-        teacher.setPicture(teacherRequest.getPicture());
+        teacher.setPhoneNumber(teacherRequest.getPhoneNumber());
         teacher.setFirstName(teacherRequest.getFirstName());
         teacher.setLastName(teacherRequest.getLastName());
         teacher.setEmail(teacherRequest.getEmail());
