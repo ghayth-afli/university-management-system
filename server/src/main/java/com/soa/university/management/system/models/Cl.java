@@ -23,4 +23,10 @@ public class Cl {
     private Character grp;
     @OneToMany(mappedBy = "cl")
     private List<Student> students;
+
+    public Cl(Speciality speciality, String grade, Character grp) {
+        this.speciality = speciality;
+        this.grade = grade;
+        this.grp = grp;
+    }
 }
