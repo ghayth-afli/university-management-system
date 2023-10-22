@@ -26,4 +26,5 @@ public class ScheduleController {
         //scheduleRepository.save(schedule);
         return ResponseEntity.ok(new MessageResponse("Schedule successfully added"));
     }
+
 }
