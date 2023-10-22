@@ -20,6 +20,4 @@ public class TeacherRequest {
     private String lastName;
     private String email;
     private Double salary;
-      @OneToMany(mappedBy = "teacher")
-    private List<Schedule> schedules;
 }
