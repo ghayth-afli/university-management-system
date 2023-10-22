@@ -16,7 +16,4 @@ public class StudentRequest {
     private String email;
     private String phoneNumber;
     private String address;
-    private String city;
-    private String country;
-    private String picture;
 }

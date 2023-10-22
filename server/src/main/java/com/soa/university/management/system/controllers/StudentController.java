@@ -25,7 +25,7 @@ public class StudentController {
     @PostMapping("/students")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> addStudent(@RequestBody StudentRequest studentRequest){
-        Student student = new Student(studentRequest.getFirstName(),studentRequest.getLastName(),studentRequest.getAge(),studentRequest.getEmail(),studentRequest.getPhoneNumber(),studentRequest.getAddress(),studentRequest.getCity(),studentRequest.getCountry(),studentRequest.getPicture());
+        Student student = new Student(studentRequest.getFirstName(),studentRequest.getLastName(),studentRequest.getAge(),studentRequest.getEmail(),studentRequest.getPhoneNumber(),studentRequest.getAddress());
         studentRepository.save(student);
         return ResponseEntity.ok(new MessageResponse("Student successfully added"));
     }
@@ -60,9 +60,6 @@ public class StudentController {
         student.setEmail(studentRequest.getEmail());
         student.setPhoneNumber(studentRequest.getPhoneNumber());
         student.setAddress(studentRequest.getAddress());
-        student.setCity(studentRequest.getCity());
-        student.setCountry(studentRequest.getCountry());
-        student.setPicture(studentRequest.getPicture());
         studentRepository.save(student);
         return ResponseEntity.ok(new MessageResponse("Student successfully edited"));
     }
