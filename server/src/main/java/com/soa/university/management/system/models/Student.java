@@ -18,26 +18,20 @@ public class Student {
     private String lastName;
     private Integer age;
     private String email;
-    private String phoneNumber;
+    private Long phoneNumber;
     private String address;
-    private String city;
-    private String country;
-    private String picture;
     @ManyToOne
     @JoinColumn(name = "cl_id")
     private Cl cl;
     @OneToMany(mappedBy = "student")
     private List<Evaluation> evaluations;
 
-    public Student(String firstName, String lastName, Integer age, String email, String phoneNumber, String address, String city, String country, String picture) {
+    public Student(String firstName, String lastName, Integer age, String email, Long phoneNumber, String address) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.age = age;
         this.email = email;
         this.phoneNumber = phoneNumber;
         this.address = address;
-        this.city = city;
-        this.country = country;
-        this.picture = picture;
     }
 }
