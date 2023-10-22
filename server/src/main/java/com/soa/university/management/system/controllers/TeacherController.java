@@ -36,7 +36,7 @@ public class TeacherController {
  public ResponseEntity<?> getAllTeachers(){
     return ResponseEntity.ok(teacherRepository.findAll());}
 
-@PostMapping("/teachers")
+@PostMapping("/teachers/{id}")
 @PreAuthorize("hasRole('ADMIN')")
 public ResponseEntity<?> getTeacher(@PathVariable Long id){
     Optional<Teacher> teacher = teacherRepository.findById(id);
@@ -44,7 +44,7 @@ public ResponseEntity<?> getTeacher(@PathVariable Long id){
     return ResponseEntity.ok(new MessageResponse("Teacher not found"));}
     return ResponseEntity.ok(teacher);
 }
- @PostMapping("/teachers")
+ @PostMapping("/teachers/{id}")
  @PreAuthorize("hasRole('ADMIN')")
  public ResponseEntity<?> updateTeacher(@PathVariable Long id,@RequestBody TeacherRequest teacherRequest){
     Optional<Teacher> teacherResponse=teacherRepository.findById(id);
