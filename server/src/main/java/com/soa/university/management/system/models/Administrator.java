@@ -6,32 +6,29 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.List;
-
-@AllArgsConstructor
-@NoArgsConstructor
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
-@Table(name = "teachers")
-public class Teacher {
+@Table(name = "administrators")
+public class Administrator {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String picture;
     private String firstName;
     private String lastName;
     private String email;
-    private Double salary;
-    @OneToMany(mappedBy = "teacher")
-    private List<Schedule> schedules;
+    private String phoneNumber;
+    private String address;
+    private String position;
 
-    public Teacher( String picture, String firstName, String lastName, String email, Double salary) {
-        this.picture = picture;
+    public Administrator(String firstName, String lastName, String email, String phoneNumber, String address, String position) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
-        this.salary = salary;
+        this.phoneNumber = phoneNumber;
+        this.address = address;
+        this.position = position;
     }
-    
 }

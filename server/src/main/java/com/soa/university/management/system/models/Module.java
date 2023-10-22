@@ -1,15 +1,23 @@
 package com.soa.university.management.system.models;
 
+import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.List;
+
 @AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
+@Entity
+@Table(name = "modules")
 public class Module {
-    private Long Id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String name;
-    private int creditPoints;
-    private int Ds;
-    private int Exam;
-    private int duration;
+    private Double nbHours;
+    private Double coefficient;
+    @OneToMany(mappedBy = "module")
+    private List<Schedule> schedules;
 }

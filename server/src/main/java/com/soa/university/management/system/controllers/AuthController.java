@@ -81,33 +81,10 @@ public class AuthController {
         User user = new User(signUpRequest.getUsername(),
                 signUpRequest.getEmail(),
                 encoder.encode(signUpRequest.getPassword()));
-        String strRole = signUpRequest.getRole();
 
-        if (strRole == null) {
-            Role userRole = roleRepository.findByName(ERole.ROLE_STUDENT)
-                    .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-            user.setRole(userRole);
-        } else {
-            switch (strRole) {
-                case "admin":
-                    Role adminRole = roleRepository.findByName(ERole.ROLE_ADMIN)
-                            .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-                    user.setRole(adminRole);
-
-                    break;
-                case "support":
-                    Role supportRole = roleRepository.findByName(ERole.ROLE_TEACHER)
-                            .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-                    user.setRole(supportRole);
-
-                    break;
-                default:
-                    Role userRole = roleRepository.findByName(ERole.ROLE_STUDENT)
-                            .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-                    user.setRole(userRole);
-            }
-
-        }
+        Role adminRole = roleRepository.findByName(ERole.ROLE_ADMIN)
+                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+        user.setRole(adminRole);
         userRepository.save(user);
         return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
     }
