@@ -127,8 +127,6 @@ const Teachers = () => {
                     placeholder="Enter last name"
                     fullWidth
                   />
-                  <InputLabel htmlFor="age">Age</InputLabel>
-                  <OutlinedInput id="age" type="text" name="age" onChange={handleChange} placeholder="Enter age" fullWidth />
                   <InputLabel htmlFor="email">Email Address</InputLabel>
                   <OutlinedInput
                     id="email"
