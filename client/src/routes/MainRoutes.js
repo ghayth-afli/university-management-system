@@ -18,6 +18,7 @@ const AntIcons = Loadable(lazy(() => import('pages/components-overview/AntIcons'
 const Students = Loadable(lazy(() => import('pages/roles/Students')));
 const Teachers = Loadable(lazy(() => import('pages/roles/Teachers')));
 const Administration = Loadable(lazy(() => import('pages/roles/Administration')));
+const Classes = Loadable(lazy(() => import('pages/roles/Classes')));
 
 // ==============================|| MAIN ROUTING ||============================== //
 
@@ -69,6 +70,10 @@ const MainRoutes = {
     {
       path: 'administration',
       element: <Administration />
+    },
+    {
+      path: 'classes',
+      element: <Classes />
     }
   ]
 };

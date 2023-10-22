@@ -1,11 +1,12 @@
 // assets
-import { LoginOutlined, ProfileOutlined, BarcodeOutlined } from '@ant-design/icons';
+import { LoginOutlined, ProfileOutlined, BarcodeOutlined, AntDesignOutlined } from '@ant-design/icons';
 
 // icons
 const icons = {
   LoginOutlined,
   ProfileOutlined,
-  BarcodeOutlined
+  BarcodeOutlined,
+  AntDesignOutlined
 };
 
 // ==============================|| MENU ITEMS - EXTRA PAGES ||============================== //
@@ -37,6 +38,14 @@ const roles = {
       type: 'item',
       url: '/administration',
       icon: icons.BarcodeOutlined,
+      breadcrumbs: false
+    },
+    {
+      id: 'classes',
+      title: 'Classes',
+      type: 'item',
+      url: '/classes',
+      icon: icons.AntDesignOutlined,
       breadcrumbs: false
     }
   ]
