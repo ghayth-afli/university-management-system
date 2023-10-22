@@ -17,13 +17,58 @@ import {
 import { ExclamationCircleFilled } from '@ant-design/icons';
 const { confirm } = Modal;
 
-const success = () => {
-  Modal.success({
-    content: 'Student deleted successfully!'
-  });
-};
-
 const Students = () => {
+  const columns = [
+    {
+      title: 'Id',
+      dataIndex: 'id',
+      key: 'id'
+    },
+    {
+      title: 'FisrtName',
+      dataIndex: 'firstName',
+      key: 'firstName',
+      render: (text) => <a>{text}</a>
+    },
+    {
+      title: 'LastName',
+      dataIndex: 'lastName',
+      key: 'lastName',
+      render: (text) => <a>{text}</a>
+    },
+    {
+      title: 'Phone Number',
+      dataIndex: 'phoneNumber',
+      key: 'phoneNumber'
+    },
+    {
+      title: 'Email',
+      dataIndex: 'email',
+      key: 'email'
+    },
+    {
+      title: 'Address',
+      dataIndex: 'address',
+      key: 'address'
+    },
+    {
+      title: 'Age',
+      dataIndex: 'age',
+      key: 'age'
+    },
+
+    {
+      title: 'Action',
+      key: 'action',
+      render: (_, record) => (
+        <Space size="middle">
+          <a onClick={() => showPromiseUpdate(record)}>Update </a>
+          <a onClick={() => showConfirm(record)}>Delete</a>
+        </Space>
+      )
+    }
+  ];
+  const [data, setData] = React.useState([]);
   const [formData, setFormData] = React.useState({
     firstName: '',
     lastName: '',
@@ -33,6 +78,15 @@ const Students = () => {
     address: ''
   });
 
+  React.useEffect(() => {
+    fetch('http://localhost:8000/students')
+      .then((response) => response.json())
+      .then((data) => setData(data))
+      .catch((error) => console.error('Error:', error));
+  }, []);
+
+  const formDataRef = React.useRef();
+  formDataRef.current = formData;
   const handleChange = (event) => {
     const { name, value } = event.target;
 
@@ -40,10 +94,10 @@ const Students = () => {
       ...formData,
       [name]: value
     });
-    console.log(formData);
   };
 
-  const showPromiseUpdate = () => {
+  const showPromiseUpdate = (student) => {
+    console.log(student);
     confirm({
       title: 'Update Student',
       icon: <ExclamationCircleFilled />,
@@ -57,8 +111,8 @@ const Students = () => {
                   <OutlinedInput
                     id="first-name"
                     type="text"
-                    value={formData.firstName}
                     name="firstName"
+                    value={student.firstName}
                     onChange={handleChange}
                     placeholder="Enter first name"
                     fullWidth
@@ -68,27 +122,19 @@ const Students = () => {
                     id="last-name"
                     type="text"
                     name="lastName"
-                    value={formData.lastName}
+                    value={student.lastName}
                     onChange={handleChange}
                     placeholder="Enter last name"
                     fullWidth
                   />
                   <InputLabel htmlFor="age">Age</InputLabel>
-                  <OutlinedInput
-                    id="age"
-                    type="text"
-                    name="age"
-                    value={formData.age}
-                    onChange={handleChange}
-                    placeholder="Enter age"
-                    fullWidth
-                  />
+                  <OutlinedInput id="age" type="text" name="age" onChange={handleChange} placeholder="Enter age" fullWidth />
                   <InputLabel htmlFor="email">Email Address</InputLabel>
                   <OutlinedInput
                     id="email"
                     type="email"
                     name="email"
-                    value={formData.email}
+                    value={student.email}
                     onChange={handleChange}
                     placeholder="Enter email address"
                     fullWidth
@@ -98,7 +144,7 @@ const Students = () => {
                     id="phone-number"
                     type="text"
                     name="phoneNumber"
-                    value={formData.phoneNumber}
+                    value={student.phoneNumber}
                     onChange={handleChange}
                     placeholder="Enter phone number"
                     fullWidth
@@ -108,7 +154,7 @@ const Students = () => {
                     id="address"
                     type="text"
                     name="address"
-                    value={formData.address}
+                    value={student.address}
                     onChange={handleChange}
                     placeholder="Enter address"
                     fullWidth
@@ -120,109 +166,52 @@ const Students = () => {
         </>
       ),
       onOk() {
-        return new Promise((resolve, reject) => {
-          setTimeout(Math.random() > 0.5 ? resolve : reject, 1000);
-        }).catch(() => console.log('Oops errors!'));
+        fetch(`http://localhost:8080/students/${student.id}`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(formDataRef.current)
+        })
+          .then((response) => response.json())
+          .then((data) => console.log(data))
+          .catch((error) => {
+            console.error('Error:', error);
+          });
       },
       onCancel() {}
     });
   };
 
-  const showConfirm = () => {
+  const showConfirm = (student) => {
     confirm({
       title: 'Do you Want to delete this item?',
       icon: <ExclamationCircleFilled />,
       content: '',
       onOk() {
-        success();
-        console.log('OK');
+        fetch(`http://localhost:8080/students/${student.id}`, {
+          method: 'DELETE'
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            console.log(data);
+            success();
+          })
+          .catch((error) => {
+            console.error('Error:', error);
+          });
       },
       onCancel() {
         console.log('Cancel');
       }
     });
   };
-  const columns = [
-    {
-      title: 'Name',
-      dataIndex: 'name',
-      key: 'name',
-      render: (text) => <a>{text}</a>
-    },
-    {
-      title: 'Birth Date',
-      dataIndex: 'birthDate',
-      key: 'birthDate'
-    },
-    {
-      title: 'Grade',
-      dataIndex: 'grade',
-      key: 'grade'
-    },
-    {
-      title: 'Address',
-      dataIndex: 'address',
-      key: 'address'
-    },
-    {
-      title: 'Tags',
-      key: 'tags',
-      dataIndex: 'tags',
-      render: (_, { tags }) => (
-        <>
-          {tags.map((tag) => {
-            let color = tag.length > 5 ? 'geekblue' : 'green';
-            if (tag === 'loser') {
-              color = 'volcano';
-            }
-            return (
-              <Tag color={color} key={tag}>
-                {tag.toUpperCase()}
-              </Tag>
-            );
-          })}
-        </>
-      )
-    },
-    {
-      title: 'Action',
-      key: 'action',
-      render: (_, record) => (
-        <Space size="middle">
-          <a>View {record.name}</a>
-          <a onClick={showPromiseUpdate}>Update </a>
 
-          <a onClick={showConfirm}>Delete</a>
-        </Space>
-      )
-    }
-  ];
-  const data = [
-    {
-      key: '1',
-      name: 'John Brown',
-      birthDate: '1998-02-02',
-      grade: '3',
-      address: 'New York No. 1 Lake Park',
-      tags: ['nice', 'developer']
-    },
-    {
-      key: '2',
-      name: 'Jim Green',
-      birthDate: '1998-15-02',
-      grade: '3',
-      address: 'London No. 1 Lake Park',
-      tags: ['loser']
-    },
-    {
-      key: '3',
-      name: 'Joe Black',
-      birthDate: '1998-02-02',
-      grade: '4',
-      address: 'Sydney No. 1 Lake Park',
-      tags: ['cool', 'teacher']
-    }
-  ];
+  const success = () => {
+    Modal.success({
+      content: 'Student deleted successfully!'
+    });
+  };
 
   return (
     <>
