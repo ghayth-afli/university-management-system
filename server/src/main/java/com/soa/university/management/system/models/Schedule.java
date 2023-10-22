@@ -30,4 +30,13 @@ public class Schedule {
     @ManyToOne
     @JoinColumn(name = "module_id")
     private Module module;
+
+    public Schedule(Time startTime, Time endTime, String day, String room, Teacher teacher, Module module) {
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.day = day;
+        this.room = room;
+        this.teacher = teacher;
+        this.module = module;
+    }
 }

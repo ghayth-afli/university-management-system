@@ -27,4 +27,9 @@ public class Evaluation {
     @ManyToOne
     @JoinColumn(name = "schedule_id")
     private Schedule schedule;
+
+    public Evaluation(Student student, Schedule schedule) {
+        this.student = student;
+        this.schedule = schedule;
+    }
 }

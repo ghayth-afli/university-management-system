@@ -20,4 +20,10 @@ public class Module {
     private Double coefficient;
     @OneToMany(mappedBy = "module")
     private List<Schedule> schedules;
+
+    public Module(String name, Double nbHours, Double coefficient) {
+        this.name = name;
+        this.nbHours = nbHours;
+        this.coefficient = coefficient;
+    }
 }
