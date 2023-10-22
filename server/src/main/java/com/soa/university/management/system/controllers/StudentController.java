@@ -1,8 +1,10 @@
 package com.soa.university.management.system.controllers;
 
+import com.soa.university.management.system.models.Cl;
 import com.soa.university.management.system.models.Student;
 import com.soa.university.management.system.payloads.requests.StudentRequest;
 import com.soa.university.management.system.payloads.responses.MessageResponse;
+import com.soa.university.management.system.repositories.ClassRepository;
 import com.soa.university.management.system.repositories.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +19,8 @@ public class StudentController {
 
     @Autowired
     StudentRepository studentRepository;
+    @Autowired
+    ClassRepository classRepository;
 
     @PostMapping("/students")
     @PreAuthorize("hasRole('ADMIN')")
@@ -73,4 +77,24 @@ public class StudentController {
         studentRepository.deleteById(id);
         return ResponseEntity.ok(new MessageResponse("Student successfully deleted"));
     }
+
+    //assign student to class
+    @PutMapping("/students/{id}/class/{classId}")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<?> assignStudentToClass(@PathVariable Long id, @PathVariable Long classId){
+        Optional<Student> studentResponse = studentRepository.findById(id);
+        if (studentResponse.isEmpty()){
+            return ResponseEntity.ok(new MessageResponse("Student not found"));
+        }
+        Optional<Cl> classResponse = classRepository.findById(classId);
+        if (classResponse.isEmpty()){
+            return ResponseEntity.ok(new MessageResponse("Class not found"));
+        }
+        Student student = studentResponse.get();
+        Cl classe = classResponse.get();
+        student.setCl(classe);
+        studentRepository.save(student);
+        return ResponseEntity.ok(new MessageResponse("Student successfully assigned to class"));
+    }
+
 }
