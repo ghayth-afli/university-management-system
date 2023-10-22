@@ -18,7 +18,7 @@ public class Teacher {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String picture;
+    private Long phoneNumber;
     private String firstName;
     private String lastName;
     private String email;
@@ -26,8 +26,8 @@ public class Teacher {
     @OneToMany(mappedBy = "teacher")
     private List<Schedule> schedules;
 
-    public Teacher( String picture, String firstName, String lastName, String email, Double salary) {
-        this.picture = picture;
+    public Teacher( Long phoneNumber, String firstName, String lastName, String email, Double salary) {
+        this.phoneNumber = phoneNumber;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
