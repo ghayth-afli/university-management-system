@@ -11,7 +11,7 @@ import com.soa.university.management.system.models.Teacher;
 import com.soa.university.management.system.payloads.requests.TeacherRequest;
 import com.soa.university.management.system.payloads.responses.MessageResponse;
 import com.soa.university.management.system.repositories.TeacherRepository;
-
+@CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/api")
 public class TeacherController {

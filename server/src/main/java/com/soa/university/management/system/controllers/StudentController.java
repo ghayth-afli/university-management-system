@@ -12,7 +12,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
-
+@CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/api")
 public class StudentController {
@@ -99,10 +99,10 @@ public class StudentController {
         return ResponseEntity.ok(new MessageResponse("Student successfully assigned to class"));
     }
 
-    @PutMapping("/students/{id}/module/{moduleId}")
+    @PutMapping("/students/{id}/m/{moduleId}")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> evaluateStudent(@RequestBody EvaluationRequest evaluationRequest, @PathVariable Long id, @PathVariable Long moduleId){
-        Optional<Student> studentResponse = studentRepository.findById(id);
+        /*Optional<Student> studentResponse = studentRepository.findById(id);
         if (studentResponse.isEmpty()){
             return ResponseEntity.ok(new MessageResponse("Student not found"));
         }
@@ -119,7 +119,7 @@ public class StudentController {
         evaluation.setDs(evaluationRequest.getDs());
         evaluation.setTp(evaluationRequest.getTp());
         evaluation.setExam(evaluationRequest.getExam());
-        evaluationRepository.save(evaluation);
+        evaluationRepository.save(evaluation);*/
         return ResponseEntity.ok(new MessageResponse("Evaluation successfully updated"));
     }
 
