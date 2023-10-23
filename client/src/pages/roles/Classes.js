@@ -107,7 +107,7 @@ const Classes = () => {
               <Grid item xs={10}>
                 <Stack spacing={2}>
                   <InputLabel htmlFor="speciality">Speciality</InputLabel>
-                  <Select id="speciality" label="Speciality" onChange={handleChange}>
+                  <Select id="speciality" label="Speciality" defaultValue={classe.speciality} onChange={handleChange}>
                     <MenuItem value={'TIC'}>TIC</MenuItem>
                     <MenuItem value={'GLSI'}>GLSI</MenuItem>
                     <MenuItem value={'SSIR'}>SSIR</MenuItem>
@@ -115,9 +115,25 @@ const Classes = () => {
                     <MenuItem value={'DMWM'}>DMWM</MenuItem>
                   </Select>
                   <InputLabel htmlFor="grade">Grade</InputLabel>
-                  <OutlinedInput id="grade" type="text" name="grade" onChange={handleChange} placeholder="Enter grade" fullWidth />
+                  <OutlinedInput
+                    id="grade"
+                    type="text"
+                    name="grade"
+                    defaultValue={classe.grade}
+                    onChange={handleChange}
+                    placeholder="Enter grade"
+                    fullWidth
+                  />
                   <InputLabel htmlFor="grp">Group</InputLabel>
-                  <OutlinedInput id="grp" type="text" name="grp" onChange={handleChange} placeholder="Enter group" fullWidth />
+                  <OutlinedInput
+                    id="grp"
+                    type="text"
+                    name="grp"
+                    defaultValue={classe.grp}
+                    onChange={handleChange}
+                    placeholder="Enter group"
+                    fullWidth
+                  />
                 </Stack>
               </Grid>
             </Grid>
