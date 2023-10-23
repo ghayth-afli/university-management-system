@@ -3,7 +3,7 @@ package com.soa.university.management.system.controllers;
 import com.soa.university.management.system.models.Module;
 import com.soa.university.management.system.payloads.requests.ModuleRequest;
 import com.soa.university.management.system.payloads.responses.MessageResponse;
-import com.soa.university.management.system.repositories.ModuleRepository;
+import com.soa.university.management.system.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -14,16 +14,17 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/api")
 public class ModuleController {
+
     @Autowired
     ModuleRepository moduleRepository;
 
-    @PostMapping("/modules")
+    /*@PostMapping("/modules")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> addModule(@RequestBody ModuleRequest moduleRequest){
         Module module = new Module(moduleRequest.getName(),moduleRequest.getNbHours(),moduleRequest.getCoefficient());
         moduleRepository.save(module);
         return ResponseEntity.ok(new MessageResponse("Module successfully added"));
-    }
+    }*/
 
     @GetMapping("/modules")
     @PreAuthorize("hasRole('ADMIN')")
@@ -31,7 +32,7 @@ public class ModuleController {
         return ResponseEntity.ok(moduleRepository.findAll());
     }
 
-    @GetMapping("/modules/{id}")
+    /*@GetMapping("/modules/{id}")
     @PreAuthorize("hasRole('ADMIN')")
     private ResponseEntity<?> getModule(@PathVariable Long id){
         Optional<Module> module = moduleRepository.findById(id);
@@ -65,5 +66,5 @@ public class ModuleController {
         }
         moduleRepository.deleteById(id);
         return ResponseEntity.ok(new MessageResponse("Module successfully deleted"));
-    }
+    }*/
 }

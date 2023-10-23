@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface EvaluationRepository extends JpaRepository<Evaluation, Long> {
+    Evaluation findByStudentIdAndScheduleId(Long id, Long id1);
 }

@@ -1,5 +1,6 @@
 package com.soa.university.management.system.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -22,6 +23,7 @@ public class Cl {
     private String grade;
     private Character grp;
     @OneToMany(mappedBy = "cl")
+    @JsonIgnore
     private List<Student> students;
 
     public Cl(Speciality speciality, String grade, Character grp) {

@@ -1,5 +1,6 @@
 package com.soa.university.management.system.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -24,6 +25,7 @@ public class Teacher {
     private String email;
     private Double salary;
     @OneToMany(mappedBy = "teacher")
+    @JsonIgnore
     private List<Schedule> schedules;
 
     public Teacher( Long phoneNumber, String firstName, String lastName, String email, Double salary) {

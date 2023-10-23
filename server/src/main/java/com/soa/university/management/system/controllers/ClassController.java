@@ -40,7 +40,7 @@ public class ClassController {
     public ResponseEntity<?> addClass(@RequestBody ClassRequest classRequest){
         Cl classe = new Cl(classRequest.getSpeciality(),classRequest.getGrade(),classRequest.getGrp());
         classRepository.save(classe);
-        return ResponseEntity.ok(new MessageResponse("Administrator successfully added"));
+        return ResponseEntity.ok(new MessageResponse("class successfully added"));
     }
 
     @GetMapping("/classes")

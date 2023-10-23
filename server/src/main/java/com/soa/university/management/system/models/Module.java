@@ -1,5 +1,6 @@
 package com.soa.university.management.system.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -19,6 +20,7 @@ public class Module {
     private Double nbHours;
     private Double coefficient;
     @OneToMany(mappedBy = "module")
+    @JsonIgnore
     private List<Schedule> schedules;
 
     public Module(String name, Double nbHours, Double coefficient) {

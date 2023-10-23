@@ -1,4 +1,5 @@
 package com.soa.university.management.system.models;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -20,10 +21,13 @@ public class Student {
     private String email;
     private Long phoneNumber;
     private String address;
+
     @ManyToOne
     @JoinColumn(name = "cl_id")
     private Cl cl;
+
     @OneToMany(mappedBy = "student")
+    @JsonIgnore
     private List<Evaluation> evaluations;
 
     public Student(String firstName, String lastName, Integer age, String email, Long phoneNumber, String address) {

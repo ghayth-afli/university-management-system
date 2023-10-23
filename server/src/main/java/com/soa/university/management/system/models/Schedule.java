@@ -1,4 +1,5 @@
 package com.soa.university.management.system.models;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
@@ -23,6 +24,7 @@ public class Schedule {
     private String day;
     private String room;
     @OneToMany(mappedBy = "schedule")
+    @JsonIgnore
     private List<Evaluation> evaluations;
     @ManyToOne
     @JoinColumn(name = "teacher_id")

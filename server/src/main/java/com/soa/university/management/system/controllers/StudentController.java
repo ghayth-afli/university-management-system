@@ -1,11 +1,11 @@
 package com.soa.university.management.system.controllers;
 
-import com.soa.university.management.system.models.Cl;
-import com.soa.university.management.system.models.Student;
+import com.soa.university.management.system.models.*;
+import com.soa.university.management.system.models.Module;
+import com.soa.university.management.system.payloads.requests.EvaluationRequest;
 import com.soa.university.management.system.payloads.requests.StudentRequest;
 import com.soa.university.management.system.payloads.responses.MessageResponse;
-import com.soa.university.management.system.repositories.ClassRepository;
-import com.soa.university.management.system.repositories.StudentRepository;
+import com.soa.university.management.system.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -21,7 +21,12 @@ public class StudentController {
     StudentRepository studentRepository;
     @Autowired
     ClassRepository classRepository;
-
+    @Autowired
+    EvaluationRepository evaluationRepository;
+    @Autowired
+    ModuleRepository moduleRepository;
+    @Autowired
+    ScheduleRepository scheduleRepository;
     @PostMapping("/students")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> addStudent(@RequestBody StudentRequest studentRequest){
@@ -92,6 +97,30 @@ public class StudentController {
         student.setCl(classe);
         studentRepository.save(student);
         return ResponseEntity.ok(new MessageResponse("Student successfully assigned to class"));
+    }
+
+    @PutMapping("/students/{id}/module/{moduleId}")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<?> evaluateStudent(@RequestBody EvaluationRequest evaluationRequest, @PathVariable Long id, @PathVariable Long moduleId){
+        Optional<Student> studentResponse = studentRepository.findById(id);
+        if (studentResponse.isEmpty()){
+            return ResponseEntity.ok(new MessageResponse("Student not found"));
+        }
+        Optional<Module> moduleResponse = moduleRepository.findById(id);
+        if (moduleResponse.isEmpty()){
+            return ResponseEntity.ok(new MessageResponse("Module not found"));
+        }
+        Schedule schedule = scheduleRepository.findByModuleId(moduleId);
+        if (schedule == null){
+            return ResponseEntity.ok(new MessageResponse("Schedule not found"));
+        }
+        Evaluation evaluation = evaluationRepository.findByStudentIdAndScheduleId(id,schedule.getId());
+        evaluation.setAbsences(evaluationRequest.getAbsences());
+        evaluation.setDs(evaluationRequest.getDs());
+        evaluation.setTp(evaluationRequest.getTp());
+        evaluation.setExam(evaluationRequest.getExam());
+        evaluationRepository.save(evaluation);
+        return ResponseEntity.ok(new MessageResponse("Evaluation successfully updated"));
     }
 
 }
