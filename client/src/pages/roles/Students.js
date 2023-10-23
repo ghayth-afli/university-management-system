@@ -18,6 +18,8 @@ import { ExclamationCircleFilled } from '@ant-design/icons';
 const { confirm } = Modal;
 
 const Students = () => {
+  const token = localStorage.getItem('token');
+
   const columns = [
     {
       title: 'Id',
@@ -79,7 +81,12 @@ const Students = () => {
   });
 
   React.useEffect(() => {
-    fetch('http://localhost:8000/students')
+    fetch('http://localhost:8081/api/students', {
+      method: 'GET',
+      headers: new Headers({
+        Authorization: `Bearer ${token}`
+      })
+    })
       .then((response) => response.json())
       .then((data) => setData(data))
       .catch((error) => console.error('Error:', error));
@@ -174,10 +181,11 @@ const Students = () => {
         </>
       ),
       onOk() {
-        fetch(`http://localhost:8080/students/${student.id}`, {
+        fetch(`http://localhost:8081/api/students/${student.id}`, {
           method: 'POST',
           headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`
           },
           body: JSON.stringify(formDataRef.current)
         })
@@ -197,8 +205,12 @@ const Students = () => {
       icon: <ExclamationCircleFilled />,
       content: '',
       onOk() {
-        fetch(`http://localhost:8080/students/${student.id}`, {
-          method: 'DELETE'
+        fetch(`http://localhost:8081/api/students/${student.id}`, {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`
+          }
         })
           .then((response) => response.json())
           .then((data) => {

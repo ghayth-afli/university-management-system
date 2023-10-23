@@ -18,6 +18,7 @@ import { ExclamationCircleFilled } from '@ant-design/icons';
 const { confirm } = Modal;
 
 const Administration = () => {
+  const token = localStorage.getItem('token');
   const columns = [
     {
       title: 'Id',
@@ -78,7 +79,13 @@ const Administration = () => {
   });
 
   React.useEffect(() => {
-    fetch('http://localhost:8000/administrators')
+    fetch('http://localhost:8081/api/administrators', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`
+      }
+    })
       .then((response) => response.json())
       .then((data) => setData(data))
       .catch((error) => console.error('Error:', error));
@@ -173,10 +180,11 @@ const Administration = () => {
         </>
       ),
       onOk() {
-        fetch(`http://localhost:8080/administrators/${admin.id}`, {
+        fetch(`http://localhost:8081/api/administrators/${admin.id}`, {
           method: 'POST',
           headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`
           },
           body: JSON.stringify(formDataRef.current)
         })
@@ -196,8 +204,12 @@ const Administration = () => {
       icon: <ExclamationCircleFilled />,
       content: '',
       onOk() {
-        fetch(`http://localhost:8080/administrators/${admin.id}`, {
-          method: 'DELETE'
+        fetch(`http://localhost:8081/api/administrators/${admin.id}`, {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`
+          }
         })
           .then((response) => response.json())
           .then((data) => {

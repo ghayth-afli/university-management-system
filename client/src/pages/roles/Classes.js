@@ -20,6 +20,7 @@ import { ExclamationCircleFilled } from '@ant-design/icons';
 const { confirm } = Modal;
 
 const Classes = () => {
+  const token = localStorage.getItem('token');
   const columns = [
     {
       title: 'Id',
@@ -53,20 +54,7 @@ const Classes = () => {
       )
     }
   ];
-  const [data, setData] = React.useState([
-    {
-      id: 1,
-      speciality: 'TIC',
-      grade: '1',
-      grp: '1'
-    },
-    {
-      id: 2,
-      speciality: 'GLSI',
-      grade: '1',
-      grp: '2'
-    }
-  ]);
+  const [data, setData] = React.useState([]);
   const [formData, setFormData] = React.useState({
     speciality: '',
     grade: '',
@@ -75,7 +63,13 @@ const Classes = () => {
   const [selectedRecord, setSelectedRecord] = React.useState(null);
 
   React.useEffect(() => {
-    fetch('http://localhost:8000/classes')
+    fetch('http://localhost:8081/api/classes', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`
+      }
+    })
       .then((response) => response.json())
       .then((data) => setData(data))
       .catch((error) => console.error('Error:', error));
@@ -142,10 +136,11 @@ const Classes = () => {
       ),
       onOk() {
         console.log(formData);
-        fetch(`http://localhost:8080/classes/${classe.id}`, {
+        fetch(`http://localhost:8081/api/classes/${classe.id}`, {
           method: 'POST',
           headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`
           },
           body: JSON.stringify(formDataRef.current)
         })
@@ -165,8 +160,12 @@ const Classes = () => {
       icon: <ExclamationCircleFilled />,
       content: '',
       onOk() {
-        fetch(`http://localhost:8080/classes/${classe.id}`, {
-          method: 'DELETE'
+        fetch(`http://localhost:8081/api/classes/${classe.id}`, {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`
+          }
         })
           .then((response) => response.json())
           .then((data) => {
