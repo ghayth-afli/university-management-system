@@ -8,7 +8,8 @@ import roles from './roles';
 // ==============================|| MENU ITEMS ||============================== //
 
 const menuItems = {
-  items: [dashboard, roles, utilities, support]
+  items: [dashboard, roles]
+  // items: [dashboard, roles, utilities, support]
 };
 
 export default menuItems;
