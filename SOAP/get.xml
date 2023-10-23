@@ -1,0 +1,10 @@
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:web="http://localhost:8080/api/administrators">
+    <soapenv:Header>
+        <Token>eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJyb290IiwiaWF0IjoxNjk4MDU2NDIyLCJleHAiOjE2OTgxNDI4MjJ9.aiyfGnMMgMK002hzajTJBsFVUiWLgECAMDs7I6C2s50</Token>
+    </soapenv:Header>
+    <soapenv:Body>
+        <web:GetAdministrator>
+            <web:Id>1</web:Id>
+        </web:GetAdministrator>
+    </soapenv:Body>
+</soapenv:Envelope>
