@@ -112,7 +112,7 @@ const Teachers = () => {
                     id="first-name"
                     type="text"
                     name="firstName"
-                    value={teacher.firstName}
+                    defaultValue={teacher.firstName}
                     onChange={handleChange}
                     placeholder="Enter first name"
                     fullWidth
@@ -122,7 +122,7 @@ const Teachers = () => {
                     id="last-name"
                     type="text"
                     name="lastName"
-                    value={teacher.lastName}
+                    defaultValue={teacher.lastName}
                     onChange={handleChange}
                     placeholder="Enter last name"
                     fullWidth
@@ -132,7 +132,7 @@ const Teachers = () => {
                     id="email"
                     type="email"
                     name="email"
-                    value={teacher.email}
+                    defaultValue={teacher.email}
                     onChange={handleChange}
                     placeholder="Enter email address"
                     fullWidth
@@ -142,7 +142,7 @@ const Teachers = () => {
                     id="phone-number"
                     type="text"
                     name="phoneNumber"
-                    value={teacher.phoneNumber}
+                    defaultValue={teacher.phoneNumber}
                     onChange={handleChange}
                     placeholder="Enter phone number"
                     fullWidth
@@ -152,7 +152,7 @@ const Teachers = () => {
                     id="address"
                     type="text"
                     name="address"
-                    value={teacher.address}
+                    defaultValue={teacher.address}
                     onChange={handleChange}
                     placeholder="Enter address"
                     fullWidth
@@ -162,7 +162,7 @@ const Teachers = () => {
                     id="salary"
                     type="text"
                     name="salary"
-                    value={teacher.salary}
+                    defaultValue={teacher.salary}
                     onChange={handleChange}
                     placeholder="Enter salary"
                     fullWidth

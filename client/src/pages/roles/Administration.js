@@ -111,7 +111,7 @@ const Administration = () => {
                     id="first-name"
                     type="text"
                     name="firstName"
-                    value={admin.firstName}
+                    defaultValue={admin.firstName}
                     onChange={handleChange}
                     placeholder="Enter first name"
                     fullWidth
@@ -121,7 +121,7 @@ const Administration = () => {
                     id="last-name"
                     type="text"
                     name="lastName"
-                    value={admin.lastName}
+                    defaultValue={admin.lastName}
                     onChange={handleChange}
                     placeholder="Enter last name"
                     fullWidth
@@ -131,7 +131,7 @@ const Administration = () => {
                     id="email"
                     type="email"
                     name="email"
-                    value={admin.email}
+                    defaultValue={admin.email}
                     onChange={handleChange}
                     placeholder="Enter email address"
                     fullWidth
@@ -141,7 +141,7 @@ const Administration = () => {
                     id="phone-number"
                     type="text"
                     name="phoneNumber"
-                    value={admin.phoneNumber}
+                    defaultValue={admin.phoneNumber}
                     onChange={handleChange}
                     placeholder="Enter phone number"
                     fullWidth
@@ -151,7 +151,7 @@ const Administration = () => {
                     id="address"
                     type="text"
                     name="address"
-                    value={admin.address}
+                    defaultValue={admin.address}
                     onChange={handleChange}
                     placeholder="Enter address"
                     fullWidth
@@ -161,7 +161,7 @@ const Administration = () => {
                     id="position"
                     type="text"
                     name="position"
-                    value={admin.position}
+                    defaultValue={admin.position}
                     onChange={handleChange}
                     placeholder="Enter position"
                     fullWidth

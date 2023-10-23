@@ -112,7 +112,7 @@ const Students = () => {
                     id="first-name"
                     type="text"
                     name="firstName"
-                    value={student.firstName}
+                    defaultValue={student.firstName}
                     onChange={handleChange}
                     placeholder="Enter first name"
                     fullWidth
@@ -122,7 +122,7 @@ const Students = () => {
                     id="last-name"
                     type="text"
                     name="lastName"
-                    value={student.lastName}
+                    defaultValue={student.lastName}
                     onChange={handleChange}
                     placeholder="Enter last name"
                     fullWidth
@@ -132,7 +132,7 @@ const Students = () => {
                     id="age"
                     type="text"
                     name="age"
-                    value={student.age}
+                    defaultValue={student.age}
                     onChange={handleChange}
                     placeholder="Enter age"
                     fullWidth
@@ -142,7 +142,7 @@ const Students = () => {
                     id="email"
                     type="email"
                     name="email"
-                    value={student.email}
+                    defaultValue={student.email}
                     onChange={handleChange}
                     placeholder="Enter email address"
                     fullWidth
@@ -152,7 +152,7 @@ const Students = () => {
                     id="phone-number"
                     type="text"
                     name="phoneNumber"
-                    value={student.phoneNumber}
+                    defaultValue={student.phoneNumber}
                     onChange={handleChange}
                     placeholder="Enter phone number"
                     fullWidth
@@ -162,7 +162,7 @@ const Students = () => {
                     id="address"
                     type="text"
                     name="address"
-                    value={student.address}
+                    defaultValue={student.address}
                     onChange={handleChange}
                     placeholder="Enter address"
                     fullWidth
