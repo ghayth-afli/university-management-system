@@ -198,7 +198,73 @@ const Students = () => {
       onCancel() {}
     });
   };
-
+  const showAddStudentForm = () => {
+    confirm({
+      title: 'Add new Student',
+      icon: <ExclamationCircleFilled />,
+      content: (
+        <>
+          <form>
+            <Grid container spacing={3}>
+              <Grid item xs={10}>
+                <Stack spacing={2}>
+                  <InputLabel htmlFor="first-name">First Name</InputLabel>
+                  <OutlinedInput
+                    id="first-name"
+                    type="text"
+                    name="firstName"
+                    onChange={handleChange}
+                    placeholder="Enter first name"
+                    fullWidth
+                  />
+                  <InputLabel htmlFor="last-name">Last Name</InputLabel>
+                  <OutlinedInput
+                    id="last-name"
+                    type="text"
+                    name="lastName"
+                    onChange={handleChange}
+                    placeholder="Enter last name"
+                    fullWidth
+                  />
+                  <InputLabel htmlFor="age">Age</InputLabel>
+                  <OutlinedInput id="age" type="text" name="age" onChange={handleChange} placeholder="Enter age" fullWidth />
+                  <InputLabel htmlFor="email">Email Address</InputLabel>
+                  <OutlinedInput id="email" type="email" name="email" onChange={handleChange} placeholder="Enter email address" fullWidth />
+                  <InputLabel htmlFor="phone-number">Phone Number</InputLabel>
+                  <OutlinedInput
+                    id="phone-number"
+                    type="text"
+                    name="phoneNumber"
+                    onChange={handleChange}
+                    placeholder="Enter phone number"
+                    fullWidth
+                  />
+                  <InputLabel htmlFor="address">Address</InputLabel>
+                  <OutlinedInput id="address" type="text" name="address" onChange={handleChange} placeholder="Enter address" fullWidth />
+                </Stack>
+              </Grid>
+            </Grid>
+          </form>
+        </>
+      ),
+      onOk() {
+        fetch('http://localhost:8081/api/students', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`
+          },
+          body: JSON.stringify(formDataRef.current)
+        })
+          .then((response) => response.json())
+          .then((data) => console.log(data))
+          .catch((error) => {
+            console.error('Error:', error);
+          });
+      },
+      onCancel() {}
+    });
+  };
   const showConfirm = (student) => {
     confirm({
       title: 'Do you Want to delete this item?',
@@ -235,6 +301,9 @@ const Students = () => {
 
   return (
     <>
+      <Button type="primary" onClick={showAddStudentForm}>
+        Add Student
+      </Button>
       <Table columns={columns} dataSource={data} />
     </>
   );

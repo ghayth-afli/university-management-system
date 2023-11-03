@@ -181,7 +181,52 @@ const Classes = () => {
       }
     });
   };
-
+  const showAddClasseForm = () => {
+    confirm({
+      title: 'Add new Classe',
+      icon: <ExclamationCircleFilled />,
+      content: (
+        <>
+          <form>
+            <Grid container spacing={3}>
+              <Grid item xs={10}>
+                <Stack spacing={2}>
+                  <InputLabel htmlFor="speciality">Speciality</InputLabel>
+                  <Select id="speciality" label="Speciality" onChange={handleChange}>
+                    <MenuItem value={'TIC'}>TIC</MenuItem>
+                    <MenuItem value={'GLSI'}>GLSI</MenuItem>
+                    <MenuItem value={'SSIR'}>SSIR</MenuItem>
+                    <MenuItem value={'DSEN'}>DSEN</MenuItem>
+                    <MenuItem value={'DMWM'}>DMWM</MenuItem>
+                  </Select>
+                  <InputLabel htmlFor="grade">Grade</InputLabel>
+                  <OutlinedInput id="grade" type="text" name="grade" onChange={handleChange} placeholder="Enter grade" fullWidth />
+                  <InputLabel htmlFor="grp">Group</InputLabel>
+                  <OutlinedInput id="grp" type="text" name="grp" onChange={handleChange} placeholder="Enter group" fullWidth />
+                </Stack>
+              </Grid>
+            </Grid>
+          </form>
+        </>
+      ),
+      onOk() {
+        fetch('http://localhost:8081/api/classes', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`
+          },
+          body: JSON.stringify(formDataRef.current)
+        })
+          .then((response) => response.json())
+          .then((data) => console.log(data))
+          .catch((error) => {
+            console.error('Error:', error);
+          });
+      },
+      onCancel() {}
+    });
+  };
   const success = () => {
     Modal.success({
       content: 'Classe deleted successfully!'
@@ -190,6 +235,7 @@ const Classes = () => {
 
   return (
     <>
+      <Button onClick={showAddClasseForm}>Add new Classe</Button>
       <Table columns={columns} dataSource={data} />
     </>
   );
