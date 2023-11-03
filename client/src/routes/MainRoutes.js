@@ -22,13 +22,15 @@ const Classes = Loadable(lazy(() => import('pages/roles/Classes')));
 const Modules = Loadable(lazy(() => import('pages/roles/Modules')));
 // ==============================|| MAIN ROUTING ||============================== //
 
+import { ProtectedRoute } from './ProtectedRoute';
+
 const MainRoutes = {
   path: '/',
   element: <MainLayout />,
   children: [
     {
       path: '/',
-      element: <DashboardDefault />
+      element: <ProtectedRoute element={<DashboardDefault />} />
     },
     {
       path: 'color',
@@ -39,7 +41,7 @@ const MainRoutes = {
       children: [
         {
           path: 'default',
-          element: <DashboardDefault />
+          element: <ProtectedRoute element={<DashboardDefault />} />
         }
       ]
     },
@@ -61,19 +63,19 @@ const MainRoutes = {
     },
     {
       path: 'students',
-      element: <Students />
+      element: <ProtectedRoute element={<Students />} />
     },
     {
       path: 'teachers',
-      element: <Teachers />
+      element: <ProtectedRoute element={<Teachers />} />
     },
     {
       path: 'administration',
-      element: <Administration />
+      element: <ProtectedRoute element={<Administration />} />
     },
     {
       path: 'classes',
-      element: <Classes />
+      element: <ProtectedRoute element={<Classes />} />
     }
     // {
     //   path: 'modules',
