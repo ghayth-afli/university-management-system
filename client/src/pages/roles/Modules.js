@@ -92,7 +92,7 @@ const Modules = () => {
   });
 
   React.useEffect(() => {
-    fetch('http://localhost:8000/modules')
+    fetch('http://localhost:8081/api/modules')
       .then((response) => response.json())
       .then((data) => setData(data))
       .catch((error) => console.error('Error:', error));
@@ -160,7 +160,7 @@ const Modules = () => {
       ),
       onOk() {
         console.log(formData);
-        fetch(`http://localhost:8080/modules/${module.id}`, {
+        fetch(`http://localhost:8081/api/modules/${module.id}`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
@@ -183,7 +183,7 @@ const Modules = () => {
       icon: <ExclamationCircleFilled />,
       content: '',
       onOk() {
-        fetch(`http://localhost:8080/modules/${module.id}`, {
+        fetch(`http://localhost:8081/api/modules/${module.id}`, {
           method: 'DELETE'
         })
           .then((response) => response.json())

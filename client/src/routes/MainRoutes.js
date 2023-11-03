@@ -74,11 +74,11 @@ const MainRoutes = {
     {
       path: 'classes',
       element: <Classes />
-    },
-    {
-      path: 'modules',
-      element: <Modules />
     }
+    // {
+    //   path: 'modules',
+    //   element: <Modules />
+    // }
   ]
 };
 

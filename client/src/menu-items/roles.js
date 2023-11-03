@@ -48,15 +48,15 @@ const roles = {
       url: '/classes',
       icon: icons.AntDesignOutlined,
       breadcrumbs: false
-    },
-    {
-      id: 'modules',
-      title: 'Modules',
-      type: 'item',
-      url: '/modules',
-      icon: icons.EditOutlined,
-      breadcrumbs: false
     }
+    // {
+    //   id: 'modules',
+    //   title: 'Modules',
+    //   type: 'item',
+    //   url: '/modules',
+    //   icon: icons.EditOutlined,
+    //   breadcrumbs: false
+    // }
   ]
 };
 
