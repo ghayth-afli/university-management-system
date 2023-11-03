@@ -7,7 +7,7 @@ import { Box, Chip, Grid, Stack, Typography } from '@mui/material';
 import MainCard from 'components/MainCard';
 
 // assets
-import { RiseOutlined, FallOutlined } from '@ant-design/icons';
+import { RiseOutlined } from '@ant-design/icons';
 
 // ==============================|| STATISTICS - ECOMMERCE CARD  ||============================== //
 
@@ -31,7 +31,7 @@ const AnalyticEcommerce = ({ color, title, count, percentage, isLoss, extra }) =
               icon={
                 <>
                   {!isLoss && <RiseOutlined style={{ fontSize: '0.75rem', color: 'inherit' }} />}
-                  {isLoss && <FallOutlined style={{ fontSize: '0.75rem', color: 'inherit' }} />}
+                  {/* {isLoss && <FallOutlined style={{ fontSize: '0.75rem', color: 'inherit' }} />} */}
                 </>
               }
               label={`${percentage}%`}
