@@ -47,13 +47,10 @@ public class StatisticController {
             Cl cl = student.getCl();
             Speciality classe = cl.getSpeciality();
             Integer absences = evaluation.getAbsences();
-            System.out.println(classe);
             if (absences != null) {
                 absencesByClass.put(classe, absencesByClass.getOrDefault(classe, 0) + absences);
             }
         }
-        //return ResponseEntity.ok(absencesByClass);
-        //return ResponseEntity.ok(evaluationRepository.findAll());
         Integer sumAbsences = 0;
         if (evaluationRepository.findAll().size() > 0){
             for (Evaluation evs : evaluationRepository.findAll()){
