@@ -114,7 +114,7 @@ const DashboardDefault = () => {
         <Grid item md={8} sx={{ display: { sm: 'none', md: 'block', lg: 'none' } }} />
 
         {/* row 2 */}
-        <Grid item xs={12} md={7} lg={12}>
+        <Grid item xs={12} md={12} lg={12}>
           <Grid container alignItems="center" justifyContent="space-between">
             <Grid item>
               <Typography variant="h5">Absences per classe</Typography>

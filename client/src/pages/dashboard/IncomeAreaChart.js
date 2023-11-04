@@ -111,8 +111,7 @@ const IncomeAreaChart = ({ slot }) => {
       {
         name: 'SSIR',
         data: slot === 'month' ? [60, 50, 80, 25, 50, 30, 20, 40, 60, 40, 40, 30] : [10, 30, 40, 30, 30, 50, 40]
-      },
-      {}
+      }
     ]);
   }, [slot]);
 
