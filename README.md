@@ -3,6 +3,9 @@
 
 The "University Management System" is a comprehensive software solution designed to streamline and enhance the management of educational institutions, specifically universities. It provides a robust and user-friendly platform for administrators, faculty, and students to efficiently manage various aspects of university operations.
 
+## BPMN
+
+![App Screenshot](https://github.com/ghayth-afli/university-management-system/blob/main/BPMN-%20demandEtudiant.png)
 
 ## Installation
 
