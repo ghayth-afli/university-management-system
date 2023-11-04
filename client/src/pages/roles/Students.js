@@ -288,6 +288,7 @@ const Students = () => {
           .then((data) => {
             console.log(data);
             success();
+            setData((prevData) => prevData.filter((item) => item.id !== student.id));
           })
           .catch((error) => {
             console.error('Error:', error);

@@ -224,6 +224,7 @@ const Administration = () => {
           .then((data) => {
             console.log(data);
             success();
+            setData((prevData) => prevData.filter((item) => item.id !== admin.id));
           })
           .catch((error) => {
             console.error('Error:', error);

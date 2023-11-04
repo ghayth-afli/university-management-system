@@ -174,6 +174,7 @@ const Classes = () => {
           .then((data) => {
             console.log(data);
             success();
+            setData((prevData) => prevData.filter((item) => item.id !== classe.id));
           })
           .catch((error) => {
             console.error('Error:', error);

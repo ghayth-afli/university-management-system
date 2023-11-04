@@ -207,6 +207,7 @@ const Teachers = () => {
           .then((data) => {
             console.log(data);
             success();
+            setData((prevData) => prevData.filter((item) => item.id !== teacher.id));
           })
           .catch((error) => {
             console.error('Error:', error);
