@@ -18,7 +18,7 @@ const HeaderContent = () => {
       {!matchesXs && <Search />}
       {matchesXs && <Box sx={{ width: '100%', ml: 1 }} />}
 
-      <IconButton
+      {/* <IconButton
         component={Link}
         href="https://github.com/codedthemes/mantis-free-react-admin-template"
         target="_blank"
@@ -28,7 +28,7 @@ const HeaderContent = () => {
         sx={{ color: 'text.primary', bgcolor: 'grey.100' }}
       >
         <GithubOutlined />
-      </IconButton>
+      </IconButton> */}
 
       <Notification />
       {!matchesXs && <Profile />}

@@ -92,7 +92,7 @@ const Modules = () => {
   });
 
   React.useEffect(() => {
-    fetch('http://localhost:8000/modules')
+    fetch('http://localhost:8081/api/modules')
       .then((response) => response.json())
       .then((data) => setData(data))
       .catch((error) => console.error('Error:', error));
@@ -160,7 +160,7 @@ const Modules = () => {
       ),
       onOk() {
         console.log(formData);
-        fetch(`http://localhost:8080/modules/${module.id}`, {
+        fetch(`http://localhost:8081/api/modules/${module.id}`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
@@ -183,7 +183,7 @@ const Modules = () => {
       icon: <ExclamationCircleFilled />,
       content: '',
       onOk() {
-        fetch(`http://localhost:8080/modules/${module.id}`, {
+        fetch(`http://localhost:8081/api/modules/${module.id}`, {
           method: 'DELETE'
         })
           .then((response) => response.json())
@@ -200,7 +200,60 @@ const Modules = () => {
       }
     });
   };
-
+  const showAddModuleForm = () => {
+    confirm({
+      title: 'Add new teacher',
+      icon: <ExclamationCircleFilled />,
+      content: (
+        <>
+          <form>
+            <Grid container spacing={3}>
+              <Grid item xs={10}>
+                <Stack spacing={2}>
+                  <InputLabel htmlFor="name">Name</InputLabel>
+                  <OutlinedInput id="name" type="text" name="name" onChange={handleChange} placeholder="Enter name" fullWidth />
+                  <InputLabel htmlFor="nbHours">NbHours</InputLabel>
+                  <OutlinedInput
+                    id="nbHours"
+                    type="text"
+                    name="nbHours"
+                    onChange={handleChange}
+                    placeholder="Enter number of hours"
+                    fullWidth
+                  />
+                  <InputLabel htmlFor="coefficient">Coefficient</InputLabel>
+                  <OutlinedInput
+                    id="coefficient"
+                    type="text"
+                    name="coefficient"
+                    onChange={handleChange}
+                    placeholder="Enter coefficient"
+                    fullWidth
+                  />
+                </Stack>
+              </Grid>
+            </Grid>
+          </form>
+        </>
+      ),
+      onOk() {
+        fetch('http://localhost:8081/api/modules', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`
+          },
+          body: JSON.stringify(formDataRef.current)
+        })
+          .then((response) => response.json())
+          .then((data) => console.log(data))
+          .catch((error) => {
+            console.error('Error:', error);
+          });
+      },
+      onCancel() {}
+    });
+  };
   const success = () => {
     Modal.success({
       content: 'Module deleted successfully!'
@@ -209,6 +262,10 @@ const Modules = () => {
 
   return (
     <>
+      <Button type="primary" onClick={showAddModuleForm}>
+        Add Module
+      </Button>
+
       <Table columns={columns} dataSource={data} />
     </>
   );

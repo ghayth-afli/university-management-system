@@ -89,11 +89,11 @@ const IncomeAreaChart = ({ slot }) => {
 
   const [series, setSeries] = useState([
     {
-      name: 'Page Views',
+      name: 'Users',
       data: [0, 86, 28, 115, 48, 210, 136]
     },
     {
-      name: 'Sessions',
+      name: 'Absent',
       data: [0, 43, 14, 56, 24, 105, 68]
     }
   ]);
@@ -101,13 +101,18 @@ const IncomeAreaChart = ({ slot }) => {
   useEffect(() => {
     setSeries([
       {
-        name: 'Page Views',
+        name: 'DMWM',
         data: slot === 'month' ? [76, 85, 101, 98, 87, 105, 91, 114, 94, 86, 115, 35] : [31, 40, 28, 51, 42, 109, 100]
       },
       {
-        name: 'Sessions',
+        name: 'GLSI',
         data: slot === 'month' ? [110, 60, 150, 35, 60, 36, 26, 45, 65, 52, 53, 41] : [11, 32, 45, 32, 34, 52, 41]
-      }
+      },
+      {
+        name: 'SSIR',
+        data: slot === 'month' ? [60, 50, 80, 25, 50, 30, 20, 40, 60, 40, 40, 30] : [10, 30, 40, 30, 30, 50, 40]
+      },
+      {}
     ]);
   }, [slot]);
 

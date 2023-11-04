@@ -18,6 +18,7 @@ import { ExclamationCircleFilled } from '@ant-design/icons';
 const { confirm } = Modal;
 
 const Administration = () => {
+  const token = localStorage.getItem('token');
   const columns = [
     {
       title: 'Id',
@@ -78,7 +79,13 @@ const Administration = () => {
   });
 
   React.useEffect(() => {
-    fetch('http://localhost:8000/administrators')
+    fetch('http://localhost:8081/api/administrators', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`
+      }
+    })
       .then((response) => response.json())
       .then((data) => setData(data))
       .catch((error) => console.error('Error:', error));
@@ -173,10 +180,11 @@ const Administration = () => {
         </>
       ),
       onOk() {
-        fetch(`http://localhost:8080/administrators/${admin.id}`, {
+        fetch(`http://localhost:8081/api/administrators/${admin.id}`, {
           method: 'POST',
           headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`
           },
           body: JSON.stringify(formDataRef.current)
         })
@@ -196,8 +204,12 @@ const Administration = () => {
       icon: <ExclamationCircleFilled />,
       content: '',
       onOk() {
-        fetch(`http://localhost:8080/administrators/${admin.id}`, {
-          method: 'DELETE'
+        fetch(`http://localhost:8081/api/administrators/${admin.id}`, {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`
+          }
         })
           .then((response) => response.json())
           .then((data) => {
@@ -213,7 +225,73 @@ const Administration = () => {
       }
     });
   };
-
+  const showAddAdminForm = () => {
+    confirm({
+      title: 'Add new admin',
+      icon: <ExclamationCircleFilled />,
+      content: (
+        <>
+          <form>
+            <Grid container spacing={3}>
+              <Grid item xs={10}>
+                <Stack spacing={2}>
+                  <InputLabel htmlFor="first-name">First Name</InputLabel>
+                  <OutlinedInput
+                    id="first-name"
+                    type="text"
+                    name="firstName"
+                    onChange={handleChange}
+                    placeholder="Enter first name"
+                    fullWidth
+                  />
+                  <InputLabel htmlFor="last-name">Last Name</InputLabel>
+                  <OutlinedInput
+                    id="last-name"
+                    type="text"
+                    name="lastName"
+                    onChange={handleChange}
+                    placeholder="Enter last name"
+                    fullWidth
+                  />
+                  <InputLabel htmlFor="email">Email Address</InputLabel>
+                  <OutlinedInput id="email" type="email" name="email" onChange={handleChange} placeholder="Enter email address" fullWidth />
+                  <InputLabel htmlFor="phone-number">Phone Number</InputLabel>
+                  <OutlinedInput
+                    id="phone-number"
+                    type="text"
+                    name="phoneNumber"
+                    onChange={handleChange}
+                    placeholder="Enter phone number"
+                    fullWidth
+                  />
+                  <InputLabel htmlFor="address">Address</InputLabel>
+                  <OutlinedInput id="address" type="text" name="address" onChange={handleChange} placeholder="Enter address" fullWidth />
+                  <InputLabel htmlFor="position">Position</InputLabel>
+                  <OutlinedInput id="position" type="text" name="position" onChange={handleChange} placeholder="Enter position" fullWidth />
+                </Stack>
+              </Grid>
+            </Grid>
+          </form>
+        </>
+      ),
+      onOk() {
+        fetch('http://localhost:8081/api/teachers', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`
+          },
+          body: JSON.stringify(formDataRef.current)
+        })
+          .then((response) => response.json())
+          .then((data) => console.log(data))
+          .catch((error) => {
+            console.error('Error:', error);
+          });
+      },
+      onCancel() {}
+    });
+  };
   const success = () => {
     Modal.success({
       content: 'admin deleted successfully!'
@@ -222,6 +300,9 @@ const Administration = () => {
 
   return (
     <>
+      <Button onClick={showAddAdminForm} type="primary" style={{ marginBottom: 16 }}>
+        Add Administration
+      </Button>
       <Table columns={columns} dataSource={data} />
     </>
   );

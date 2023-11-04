@@ -57,6 +57,8 @@ const Profile = () => {
   const theme = useTheme();
 
   const handleLogout = async () => {
+    localStorage.removeItem('token');
+    window.location.href = '/login';
     // logout
   };
 
@@ -98,7 +100,7 @@ const Profile = () => {
       >
         <Stack direction="row" spacing={2} alignItems="center" sx={{ p: 0.5 }}>
           <Avatar alt="profile user" src={avatar1} sx={{ width: 32, height: 32 }} />
-          <Typography variant="subtitle1">John Doe</Typography>
+          <Typography variant="subtitle1"> Root root</Typography>
         </Stack>
       </ButtonBase>
       <Popper
@@ -141,9 +143,9 @@ const Profile = () => {
                           <Stack direction="row" spacing={1.25} alignItems="center">
                             <Avatar alt="profile user" src={avatar1} sx={{ width: 32, height: 32 }} />
                             <Stack>
-                              <Typography variant="h6">John Doe</Typography>
+                              <Typography variant="h6">Root root</Typography>
                               <Typography variant="body2" color="textSecondary">
-                                UI/UX Designer
+                                Administrator
                               </Typography>
                             </Stack>
                           </Stack>
