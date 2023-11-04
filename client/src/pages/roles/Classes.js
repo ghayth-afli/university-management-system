@@ -75,18 +75,16 @@ const Classes = () => {
       .catch((error) => console.error('Error:', error));
   }, []);
 
-  const formDataRef = React.useRef();
-  formDataRef.current = formData;
-
   const handleChange = (event) => {
     const { name, value } = event.target;
-    console.log(name, value);
 
-    setFormData({
-      ...formData,
+    setFormData((prevFormData) => ({
+      ...prevFormData,
       [name]: value
-    });
+    }));
   };
+  const formDataRef = React.useRef();
+  formDataRef.current = formData;
 
   const showPromiseUpdate = (classe) => {
     console.log(classe);
@@ -135,14 +133,19 @@ const Classes = () => {
         </>
       ),
       onOk() {
-        console.log(formData);
+        const combinedData = Object.keys(formDataRef.current).reduce((result, key) => {
+          if (formDataRef.current[key] || classe[key]) {
+            result[key] = formDataRef.current[key] || classe[key];
+          }
+          return result;
+        }, {});
         fetch(`http://localhost:8081/api/classes/${classe.id}`, {
-          method: 'POST',
+          method: 'PUT',
           headers: {
             'Content-Type': 'application/json',
             Authorization: `Bearer ${token}`
           },
-          body: JSON.stringify(formDataRef.current)
+          body: JSON.stringify(combinedData)
         })
           .then((response) => response.json())
           .then((data) => console.log(data))
@@ -216,7 +219,11 @@ const Classes = () => {
             'Content-Type': 'application/json',
             Authorization: `Bearer ${token}`
           },
-          body: JSON.stringify(formDataRef.current)
+          body: JSON.stringify({
+            speciality: 'TIC',
+            grade: '1',
+            grp: 'A'
+          })
         })
           .then((response) => response.json())
           .then((data) => console.log(data))
@@ -235,7 +242,9 @@ const Classes = () => {
 
   return (
     <>
-      <Button onClick={showAddClasseForm}>Add new Classe</Button>
+      <Button type="primary" onClick={showAddClasseForm}>
+        Add new Classe
+      </Button>
       <Table columns={columns} dataSource={data} />
     </>
   );

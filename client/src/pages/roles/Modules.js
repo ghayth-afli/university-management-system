@@ -103,12 +103,11 @@ const Modules = () => {
 
   const handleChange = (event) => {
     const { name, value } = event.target;
-    console.log(name, value);
 
-    setFormData({
-      ...formData,
+    setFormData((prevFormData) => ({
+      ...prevFormData,
       [name]: value
-    });
+    }));
   };
 
   const showPromiseUpdate = (module) => {
@@ -159,13 +158,19 @@ const Modules = () => {
         </>
       ),
       onOk() {
+        const combinedData = Object.keys(formDataRef.current).reduce((result, key) => {
+          if (formDataRef.current[key] || module[key]) {
+            result[key] = formDataRef.current[key] || module[key];
+          }
+          return result;
+        }, {});
         console.log(formData);
         fetch(`http://localhost:8081/api/modules/${module.id}`, {
-          method: 'POST',
+          method: 'PUT',
           headers: {
             'Content-Type': 'application/json'
           },
-          body: JSON.stringify(formDataRef.current)
+          body: JSON.stringify(combinedData)
         })
           .then((response) => response.json())
           .then((data) => console.log(data))

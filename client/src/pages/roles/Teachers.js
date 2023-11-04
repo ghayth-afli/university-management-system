@@ -47,11 +47,7 @@ const Teachers = () => {
       dataIndex: 'email',
       key: 'email'
     },
-    {
-      title: 'Address',
-      dataIndex: 'address',
-      key: 'address'
-    },
+
     {
       title: 'Salary',
       dataIndex: 'salary',
@@ -75,7 +71,6 @@ const Teachers = () => {
     lastName: '',
     email: '',
     phoneNumber: '',
-    address: '',
     salary: ''
   });
 
@@ -96,10 +91,10 @@ const Teachers = () => {
   const handleChange = (event) => {
     const { name, value } = event.target;
 
-    setFormData({
-      ...formData,
+    setFormData((prevFormData) => ({
+      ...prevFormData,
       [name]: value
-    });
+    }));
   };
 
   const showPromiseUpdate = (teacher) => {
@@ -153,16 +148,7 @@ const Teachers = () => {
                     placeholder="Enter phone number"
                     fullWidth
                   />
-                  <InputLabel htmlFor="address">Address</InputLabel>
-                  <OutlinedInput
-                    id="address"
-                    type="text"
-                    name="address"
-                    defaultValue={teacher.address}
-                    onChange={handleChange}
-                    placeholder="Enter address"
-                    fullWidth
-                  />
+
                   <InputLabel htmlFor="salary">Salary</InputLabel>
                   <OutlinedInput
                     id="salary"
@@ -180,13 +166,19 @@ const Teachers = () => {
         </>
       ),
       onOk() {
+        const combinedData = Object.keys(formDataRef.current).reduce((result, key) => {
+          if (formDataRef.current[key] || teacher[key]) {
+            result[key] = formDataRef.current[key] || teacher[key];
+          }
+          return result;
+        }, {});
         fetch(`http://localhost:8081/api/teachers/${teacher.id}`, {
-          method: 'POST',
+          method: 'PUT',
           headers: {
             'Content-Type': 'application/json',
             Authorization: `Bearer ${token}`
           },
-          body: JSON.stringify(formDataRef.current)
+          body: JSON.stringify(combinedData)
         })
           .then((response) => response.json())
           .then((data) => console.log(data))
@@ -264,8 +256,6 @@ const Teachers = () => {
                     placeholder="Enter phone number"
                     fullWidth
                   />
-                  <InputLabel htmlFor="address">Address</InputLabel>
-                  <OutlinedInput id="address" type="text" name="address" onChange={handleChange} placeholder="Enter address" fullWidth />
                   <InputLabel htmlFor="salary">Salary</InputLabel>
                   <OutlinedInput id="salary" type="text" name="salary" onChange={handleChange} placeholder="Enter salary" fullWidth />
                 </Stack>

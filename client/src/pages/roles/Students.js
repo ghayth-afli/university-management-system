@@ -92,19 +92,19 @@ const Students = () => {
       .catch((error) => console.error('Error:', error));
   }, []);
 
-  const formDataRef = React.useRef();
-  formDataRef.current = formData;
   const handleChange = (event) => {
     const { name, value } = event.target;
 
-    setFormData({
-      ...formData,
+    setFormData((prevFormData) => ({
+      ...prevFormData,
       [name]: value
-    });
+    }));
   };
+  const formDataRef = React.useRef();
+  formDataRef.current = formData;
 
   const showPromiseUpdate = (student) => {
-    console.log(student);
+    console.log('student melowl', student);
     confirm({
       title: 'Update Student',
       icon: <ExclamationCircleFilled />,
@@ -181,13 +181,19 @@ const Students = () => {
         </>
       ),
       onOk() {
+        const combinedData = Object.keys(formDataRef.current).reduce((result, key) => {
+          if (formDataRef.current[key] || student[key]) {
+            result[key] = formDataRef.current[key] || student[key];
+          }
+          return result;
+        }, {});
         fetch(`http://localhost:8081/api/students/${student.id}`, {
-          method: 'POST',
+          method: 'PUT',
           headers: {
             'Content-Type': 'application/json',
             Authorization: `Bearer ${token}`
           },
-          body: JSON.stringify(formDataRef.current)
+          body: JSON.stringify(combinedData)
         })
           .then((response) => response.json())
           .then((data) => console.log(data))

@@ -87,7 +87,10 @@ const Administration = () => {
       }
     })
       .then((response) => response.json())
-      .then((data) => setData(data))
+      .then((data) => {
+        console.log(data);
+        setData(data);
+      })
       .catch((error) => console.error('Error:', error));
   }, []);
 
@@ -96,10 +99,10 @@ const Administration = () => {
   const handleChange = (event) => {
     const { name, value } = event.target;
 
-    setFormData({
-      ...formData,
+    setFormData((prevFormData) => ({
+      ...prevFormData,
       [name]: value
-    });
+    }));
   };
 
   const showPromiseUpdate = (admin) => {
@@ -180,13 +183,19 @@ const Administration = () => {
         </>
       ),
       onOk() {
+        const combinedData = Object.keys(formDataRef.current).reduce((result, key) => {
+          if (formDataRef.current[key] || admin[key]) {
+            result[key] = formDataRef.current[key] || admin[key];
+          }
+          return result;
+        }, {});
         fetch(`http://localhost:8081/api/administrators/${admin.id}`, {
-          method: 'POST',
+          method: 'PUT',
           headers: {
             'Content-Type': 'application/json',
             Authorization: `Bearer ${token}`
           },
-          body: JSON.stringify(formDataRef.current)
+          body: JSON.stringify(combinedData)
         })
           .then((response) => response.json())
           .then((data) => console.log(data))
@@ -275,7 +284,7 @@ const Administration = () => {
         </>
       ),
       onOk() {
-        fetch('http://localhost:8081/api/teachers', {
+        fetch('http://localhost:8081/api/administrators', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
